@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 static t_shading	save_sh_d(t_shading obj_shading,
 						t_v3f n, float *t_min, float t)
@@ -84,7 +84,7 @@ static void			*render(void *ptr)
 	pthread_exit(0);
 }
 
-void				start_threads(t_scene scene)
+void				start_threads(t_scene *scene)
 {
 	pthread_t		threads[N_THREADS];
 	t_render_data	data[N_THREADS];
@@ -95,10 +95,10 @@ void				start_threads(t_scene scene)
 	{
 		data[i].range.min = i * (WIDTH / N_THREADS);
 		data[i].range.max = (i + 1) * (WIDTH / N_THREADS);
-		data[i].lights = scene.lights;
-		data[i].objects = scene.objects;
-		data[i].cam = scene.cam;
-		data[i].img = scene.mlx->img_string;
+		data[i].lights = scene->lights;
+		data[i].objects = scene->objects;
+		data[i].cam = scene->cam;
+		data[i].img = scene->mlx->img_string;
 		pthread_create(&threads[i], NULL, render, &data[i]);
 		i++;
 	}

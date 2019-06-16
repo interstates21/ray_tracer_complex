@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 static int	parse_sphere(t_objects **objects, char **split)
 {

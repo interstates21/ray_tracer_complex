@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 static t_lights			*node_create_light(t_v3f pos)
 {

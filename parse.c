@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 int				init_and_validate_vectors(t_objects *data)
 {
@@ -39,7 +39,7 @@ static int		parse_cam(t_cam *cam, char **split)
 	if (!ft_atov3f(&rot, split[2]))
 		return (p_err("Scene: cam invalid format"));
 	cam->look_at = new_v3f(0, 0, 1.0f);
-	cam->fov = 25.0f * M_PI / 180.0f;
+	cam->fov = 30.0f * M_PI / 180.0f;
 	cam->forward = normalize(substract(cam->look_at, cam->pos));
 	cam->right = normalize(cross(cam->forward, new_v3f(0, 1.0f, 0)));
 	cam->up = cross(cam->right, cam->forward);

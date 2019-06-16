@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 float	dot(t_v3f a, t_v3f b)
 {

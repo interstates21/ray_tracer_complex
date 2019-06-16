@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 void	clean_lists(t_objects *objects, t_lights *lights)
 {

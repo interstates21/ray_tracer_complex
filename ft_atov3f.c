@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 static float	ft_atof(char *str)
 {

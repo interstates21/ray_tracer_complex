@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 t_v3f		calc_cylinder_normal(t_math math, t_ray *ray, float t)
 {

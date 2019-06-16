@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 static void		rot_z(t_v3f *p, float teta)
 {

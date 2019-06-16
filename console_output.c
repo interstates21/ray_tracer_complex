@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 int		my_exit(void)
 {

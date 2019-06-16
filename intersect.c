@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 float		sphere_intersect(t_math math, t_ray *ray)
 {

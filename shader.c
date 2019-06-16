@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 static float		trace_shadow_ray(t_objects *objects,
 							t_v3f hit, t_v3f lvect)

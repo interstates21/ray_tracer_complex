@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "inc/rt.h"
 
 t_v3f	new_v3f(float x, float y, float z)
 {
