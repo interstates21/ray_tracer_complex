@@ -61,6 +61,9 @@ typedef struct	s_shading
 	float		ka;
 	float		ks;
 	float		gs;
+	float		kreflect;
+	float		krefract;
+	int			is_inside;
 }				t_shading;
 
 typedef struct	s_quadratic
@@ -196,9 +199,13 @@ int				clean_err(t_objects *objects, t_lights *lights,
 int				ft_atov3f(t_v3f *v, char *s);
 int				ft_atof_check(float *n, char *str);
 int				init_and_validate_vectors(t_objects *data);
-
+t_rgb			trace_ray(t_render_data *data, t_ray ray, int depth);
+t_rgb 			trace_new_ray(t_render_data *data, t_ray ray, t_shading shading, int depth);
 int				p_err(char *str);
 int				get_next_line(const int fd, char **line);
 void			clean_lists(t_objects *objects, t_lights *lights);
+
+t_rgb			color_mult(t_rgb b, float a);
+t_rgb			color_interpolate(t_rgb b, t_rgb a, float k1);
 
 #endif

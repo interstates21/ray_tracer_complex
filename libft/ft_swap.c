@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-void	ft_swap(int *a, int *b)
+void	ft_swap(float *a, float *b)
 {
-	int temp;
+	float temp;
 
 	if (a == NULL || b == NULL)
 		return ;

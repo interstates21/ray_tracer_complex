@@ -26,6 +26,10 @@ static t_objects		*node_create(t_objects data, t_v3f k_shade, t_v3f color)
 	obj->shading.kd = CLAMP(k_shade.y, 0.0f, 1.0f);
 	obj->shading.ks = CLAMP(k_shade.z, 0.0f, 1.0f);
 	obj->shading.gs = data.shading.gs;
+	//	HARDCODED
+	obj->shading.kreflect = obj->shading.gs == 50 ? 1 : 0;
+	obj->shading.krefract = obj->shading.gs == 60 ? 1 : 0;
+	//
 	obj->shading.color.red = (int)(CLAMP(color.x, 0, 255));
 	obj->shading.color.green = (int)(CLAMP(color.y, 0, 255));
 	obj->shading.color.blue = (int)(CLAMP(color.z, 0, 255));

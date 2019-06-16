@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 HEAD = inc/rt.h
 
-SRC =	main.c utils.c vector1.c vector2.c rotations.c render.c parse.c console_output.c intersect.c shader.c normals.c ft_atov3f.c parse_utils.c list.c parse_objects.c get_next_line.c controls.c
+SRC =	main.c utils.c vector1.c vector2.c rotations.c render.c parse.c console_output.c intersect.c shader.c normals.c ft_atov3f.c parse_utils.c list.c parse_objects.c get_next_line.c controls.c recursive_render.c color_manipulation.c
 THREADS = -lpthread
 
 OBJ = $(patsubst %.c,%.o,$(addprefix $(PATH_SRC), $(SRC)))

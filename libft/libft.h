@@ -82,7 +82,7 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f) (t_list *elem));
 int					ft_count_if(char **tab, int (*f) (char*));
-void				ft_swap(int *a, int *b);
+void				ft_swap(float *a, float *b);
 int					ft_isspace(char c);
 int					ft_skip_tab(const char *str);
 int					ft_sqrt(int nb);

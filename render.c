@@ -1,6 +1,8 @@
 #include "inc/rt.h"
 
-static t_shading	save_sh_d(t_shading obj_shading,
+#define RECURSION_DEPTH 20
+
+static t_shading	remember_object(t_shading obj_shading,
 						t_v3f n, float *t_min, float t)
 {
 	t_shading sh;
@@ -11,15 +13,14 @@ static t_shading	save_sh_d(t_shading obj_shading,
 	return (sh);
 }
 
-static t_rgb		trace_ray(t_render_data *data, t_ray ray)
+t_rgb		trace_ray(t_render_data *data, t_ray ray, int depth)
 {
 	float		tmin;
 	float		t;
 	t_objects	*objects;
 	t_shading	shading;
-
+	
 	objects = data->objects;
-	ray.pos = data->cam.pos;
 	tmin = MAX_DIST;
 	while (objects)
 	{
@@ -27,16 +28,22 @@ static t_rgb		trace_ray(t_render_data *data, t_ray ray)
 		if (t > EPSILON && t < MAX_DIST)
 		{
 			if (tmin > t)
-				shading = save_sh_d(objects->shading, ray.normal, &tmin, t);
+				shading = remember_object(objects->shading, ray.normal, &tmin, t);
 		}
 		objects = objects->next;
 	}
 	if (tmin < EPSILON || tmin >= MAX_DIST)
 		return (new_rgb(0, 0, 0));
 	shading.hit = add(ray.pos, mult(ray.dir, tmin));
+	shading.is_inside = 0;
 	if (dot(ray.dir, shading.normal) > 0)
+	{
 		shading.normal = mult(shading.normal, -1);
-	return (shader(data->objects, data->lights, shading, ray));
+		shading.is_inside = 1;
+	}
+	if (depth <= 0 || (!shading.kreflect && !shading.krefract))
+		return (shader(data->objects, data->lights, shading, ray)); // CALCULATE PIXEL COLOR
+	return (trace_new_ray(data, ray, shading, depth)); // TRACE REFLECTION OR REFRACTION RAY
 }
 
 static t_ray		generate_ray(t_cam cam, int x, int y)
@@ -47,6 +54,7 @@ static t_ray		generate_ray(t_cam cam, int x, int y)
 	float	h_plane;
 	float	w_plane;
 
+	ray.pos = cam.pos;
 	x_cam_space = (2.0f * x) / WIDTH - 1.0;
 	y_cam_space = (-2.0f * y) / HEIGHT + 1.0;
 	h_plane = tan(cam.fov);
@@ -68,6 +76,7 @@ static void			*render(void *ptr)
 	int				x;
 	int				y;
 
+
 	data = (t_render_data*)ptr;
 	y = 0;
 	while (y < HEIGHT)
@@ -76,7 +85,7 @@ static void			*render(void *ptr)
 		while (x < data->range.max)
 		{
 			ray = generate_ray(data->cam, x, y);
-			put_pixel_to_img(&(data->img), x, y, trace_ray(data, ray));
+			put_pixel_to_img(&(data->img), x, y, trace_ray(data, ray, RECURSION_DEPTH));
 			x++;
 		}
 		y++;
